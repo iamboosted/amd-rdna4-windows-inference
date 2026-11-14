@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "runtime_commit": "c83f3058b6f876f2f7e6ccbada858b2446860c85",
+  "fixture_upstream_commit": "6e9af930261a88bb28ac0bfb157ce8e57e9eea07",
+  "artifacts": [
+    {
+      "role": "retained HIP runtime",
+      "file": "amdhip64_7.dll",
+      "sha256": "3872b4aa82bbc91fcd53836bdbc2b4261c98c845eadfba31cce6ef4709a4697e"
+    },
+    {
+      "role": "retained ggml HIP backend",
+      "file": "ggml-hip.dll",
+      "sha256": "8cdde09df063bbd3e5c8fe83ceec45a0e968dc84ce2bc84cc57d3f0257919170"
+    },
+    {
+      "role": "retained hipBLAS",
+      "file": "hipblas.dll",
+      "sha256": "08d58c9b851ac2f7649a8c5b534d3c59c4b0380225aac5c9e1a6f4cc97ef24b4"
+    },
+    {
+      "role": "retained rocBLAS",
+      "file": "rocblas.dll",
+      "sha256": "0843520978a4d9e8bc0ed26bd1e2bae7fadb446259c9c312e3f2cbc7b5452e61"
+    },
+    {
+      "role": "retained llama core",
+      "file": "llama.dll",
+      "sha256": "46d26ad293f2827eb5b6ea874c398d07a064084eceb61900b8d0cbeacc930d4f"
+    },
+    {
+      "role": "unchanged target",
+      "file": "MiniCPM-V-4_7-35B-A3B-mix_q3gud_im.gguf",
+      "sha256": "6bfeefbfc723ab6fe557fcea28b31253e14128efe8d8d5774e3256a547b3a946"
+    },
+    {
+      "role": "unchanged drafter",
+      "file": "dspark-MiniCPM-V-4_7-35B-A3B-Q8_0.gguf",
+      "sha256": "8c0ee456b4b6fb3b67eee42dd515d97f7c8f7353bc4be9aafe9c4ff68a780c16"
+    },
+    {
+      "role": "unchanged projector",
+      "file": "mmproj-model-f16.gguf",
+      "sha256": "bff3b688e14c300eca273092c37c50a0ddfcc2054e079af1a0480edeed5d20f1"
+    },
+    {
+      "role": "experimental host",
+      "file": "minicpm-markov.exe",
+      "sha256": "f4fe22a3e424c43c14ab7ffe99bef7325ec8c433e841de4f0111c36ec40e12e0"
+    },
+    {
+      "role": "experimental host source",
+      "file": "markov-host.hip",
+      "sha256": "8fc56dac44c391654176a2835baecb06bd04007158494ff1f1a7603eceb2b8cd"
+    },
+    {
+      "role": "experimental kernel source",
+      "file": "markov-kernel.h",
+      "sha256": "26eb61188dd506044046b4b54f170a4f16217be1a851a88258dc6e33e8d858dc"
+    },
+    {
+      "role": "existing compiler executable",
+      "file": "clang++.exe",
+      "sha256": "8bd97ede5da146356412bf0934539183a3ea72596fcdb3788f8008ae8f1172d6"
+    }
+  ],
+  "research_snapshots": [
+    {
+      "repository": "ROCm/rocm-libraries",
+      "commit": "ce7bf3ffc51be09f091b8f87e8a0647e0ada5bf9",
+      "file": "projects/rocblas/library/src/blas2/rocblas_gemv_kernels.cpp",
+      "blob_sha": "2b120c4fe64b808571b02d2400d5af575431052c"
+    },
+    {
+      "repository": "ROCm/TheRock",
+      "commit": "5f229423e407f3bf9bd0d20d253a8040597edf2e",
+      "file": "docs/development/windows_support.md",
+      "blob_sha": "ee54df0c6505afc262d97ae9f3db8d828176d80c"
+    }
+  ],
+  "new_dependencies_acquired": false,
+  "gpu_work_run_for_publication": false,
+  "original_evidence_unchanged_by_export": true
+}

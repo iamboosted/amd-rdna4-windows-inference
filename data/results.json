@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "evidence_date": "2026-11-13",
+  "experiment": "MiniCPM DSpark full-vocabulary Q8 K256 wave32 specialization",
+  "configuration": {
+    "backend": "llama.cpp HIP on native Windows",
+    "runtime_package": "b1343",
+    "llama_build": "b11558",
+    "runtime_commit": "c83f3058b6f876f2f7e6ccbada858b2446860c85",
+    "target": "MiniCPM-V-4.7-35B-A3B mix_q3gud_im",
+    "vocabulary": 248144,
+    "drafter": "Matching DSpark Q8_0",
+    "proposals_per_round": 3,
+    "ngram_drafting": false,
+    "context_capacity": 131072,
+    "target_kv": "Q8_0 / Q8_0",
+    "draft_kv": "Q8_0 / Q8_0",
+    "target_split_9070_9060": [
+      20,
+      80
+    ],
+    "target_trunk_layers_9070_9060": [
+      9,
+      31
+    ],
+    "drafter_device": "RX 9060 XT",
+    "projector_device": "RX 9070 XT",
+    "reported_9060_power_limit_percent": -30,
+    "graph_replay": false,
+    "seed": 2046,
+    "temperature": 1.0,
+    "top_p": 0.95,
+    "top_k": 20,
+    "retained_min_p": 0.05,
+    "max_output_tokens": 16384,
+    "thinking": true,
+    "custom_host_sdk": "ROCm Core SDK 10.1.0",
+    "custom_host_hip_headers": "7.16.26385",
+    "runtime_upgraded": false,
+    "driver_independently_queried_by_this_ab": false
+  },
+  "clean_run_order": [
+    "control-01",
+    "optimized-01",
+    "optimized-02",
+    "control-02"
+  ],
+  "headline": {
+    "pooled_metric": "All reported output tokens divided by recorded decode duration",
+    "control_pooled_decode_tok_s": 85.5558581855925,
+    "optimized_pooled_decode_tok_s": 93.53627485813377,
+    "control_pooled_server_convention_tok_s": 85.52833941486699,
+    "optimized_pooled_server_convention_tok_s": 93.50618921166927,
+    "gain_percent": 9.327726752772092,
+    "gain_tok_s": 7.980416672541267,
+    "tokens_per_round": 2.902894491129785,
+    "acceptance_percent": 63.42981637099284,
+    "additional_ms_per_round_for_100_tok_s": 2.00601447245565,
+    "additional_ms_per_round_for_100_server_convention_tok_s": 2.0153515406162477
+  },
+  "mean_host_phases_ms": {
+    "control": {
+      "verify_sync": 20.982284313725494,
+      "feature_submit": 1.2321069094304389,
+      "sampling_commit": 1.2790546218487395,
+      "draft": 10.079785247432305,
+      "other": 0.3565845004668534
+    },
+    "optimized": {
+      "verify_sync": 21.692403828197946,
+      "feature_submit": 1.1975821661998132,
+      "sampling_commit": 1.2227936507936508,
+      "draft": 6.579352007469654,
+      "other": 0.342827731092437
+    }
+  },
+  "numerical_audit": {
+    "scores_compared": 797286672,
+    "bit_mismatches": 0,
+    "nonfinite": 0,
+    "guard_corruptions": 0
+  },
+  "profile": {
+    "original_markov_ms_per_three_calls": 4.056728888888889,
+    "optimized_markov_ms_per_three_calls": 0.6886666666666666,
+    "markov_group_speed_ratio": 5.890700225879317,
+    "remaining_9060_q3_k_experts_ms": 5.070097777777778,
+    "remaining_9060_q6_k_target_output_ms": 1.5338444444444443,
+    "optimized_sampled_cycles": 9,
+    "instrumented_intervals_are_not_clean_speed_claims": true,
+    "original_group_from_preceding_profile": true
+  },
+  "baseline_fixture": {
+    "upstream_tests": 17,
+    "upstream_passed": 17,
+    "regression_tests": 8,
+    "regression_passed": 4
+  },
+  "preservation": {
+    "all_match": true,
+    "parent_report_unchanged": true,
+    "production_changes": false,
+    "harness_accessed": false,
+    "distinct_pins_verified": 921
+  },
+  "runs": [
+    {
+      "run": "audit-01",
+      "mode": "audit",
+      "decode_tok_s": 82.25300834820398,
+      "decode_ms": 37785.852,
+      "request_seconds": 43.74366430000009,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 82.27947328010495,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": true,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 20.809179271708683,
+        "feature_submit": 1.2926517273576097,
+        "sampling_commit": 1.1243183940242765,
+        "draft": 11.67983660130719,
+        "other": 0.374921568627451
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 3213,
+        "compared_scores": 797286672
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 38.0,
+          "hotspotC": 49.0,
+          "powerW": 101.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 47.0,
+          "hotspotC": 50.0,
+          "powerW": 68.0,
+          "vramUsedMB": 8675.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    },
+    {
+      "run": "control-01",
+      "mode": "control",
+      "decode_tok_s": 86.40639714265053,
+      "decode_ms": 35969.559,
+      "request_seconds": 41.65731159999996,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 86.43419842873247,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": false,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 20.634086834733896,
+        "feature_submit": 1.2253006535947712,
+        "sampling_commit": 1.3013155929038283,
+        "draft": 10.063828197945844,
+        "other": 0.36049112978524744
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 0,
+        "compared_scores": 0
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 42.0,
+          "hotspotC": 53.0,
+          "powerW": 134.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 49.0,
+          "hotspotC": 53.0,
+          "powerW": 86.0,
+          "vramUsedMB": 8695.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    },
+    {
+      "run": "optimized-01",
+      "mode": "optimized",
+      "decode_tok_s": 93.31504302444982,
+      "decode_ms": 33306.527,
+      "request_seconds": 39.20728719999897,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 93.34506716956709,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": false,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 21.741113912231558,
+        "feature_submit": 1.2311213818860878,
+        "sampling_commit": 1.2274649859943978,
+        "draft": 6.555249299719888,
+        "other": 0.34358169934640526
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 3213,
+        "compared_scores": 0
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 42.0,
+          "hotspotC": 51.0,
+          "powerW": 101.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 48.0,
+          "hotspotC": 52.0,
+          "powerW": 91.0,
+          "vramUsedMB": 8641.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    },
+    {
+      "run": "optimized-02",
+      "mode": "optimized",
+      "decode_tok_s": 93.69812009253081,
+      "decode_ms": 33170.356,
+      "request_seconds": 39.184109900001204,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 93.72826749281799,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": false,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 21.64369374416433,
+        "feature_submit": 1.1640429505135388,
+        "sampling_commit": 1.2181223155929037,
+        "draft": 6.603454715219421,
+        "other": 0.34207376283846874
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 3213,
+        "compared_scores": 0
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 43.0,
+          "hotspotC": 52.0,
+          "powerW": 95.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 49.0,
+          "hotspotC": 53.0,
+          "powerW": 78.0,
+          "vramUsedMB": 8641.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    },
+    {
+      "run": "control-02",
+      "mode": "control",
+      "decode_tok_s": 84.6679477279487,
+      "decode_ms": 36708.106,
+      "request_seconds": 42.51304469999741,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 84.6951896673721,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": false,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 21.330481792717087,
+        "feature_submit": 1.2389131652661065,
+        "sampling_commit": 1.2567936507936508,
+        "draft": 10.095742296918768,
+        "other": 0.3526778711484594
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 0,
+        "compared_scores": 0
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 45.0,
+          "hotspotC": 55.0,
+          "powerW": 100.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 50.0,
+          "hotspotC": 53.0,
+          "powerW": 70.0,
+          "vramUsedMB": 8726.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    },
+    {
+      "run": "profile-01",
+      "mode": "optimized",
+      "decode_tok_s": 95.22490894884048,
+      "decode_ms": 32638.519,
+      "request_seconds": 38.30845330000011,
+      "prompt_tokens": 4570,
+      "output_tokens": 3109,
+      "accepted_proposals": 2038,
+      "proposals": 3213,
+      "rounds": 1071,
+      "tests_passed": 25,
+      "tests_total": 25,
+      "emitted_tokens_per_decode_s": 95.25554759393341,
+      "server_rate_counted_tokens": 3108,
+      "instrumented": true,
+      "thinking": true,
+      "token_ids_identical": true,
+      "reasoning_identical": true,
+      "answer_identical": true,
+      "code_identical": true,
+      "owned_cleanup_confirmed": true,
+      "guard_trip": false,
+      "host_per_round_ms": {
+        "verify_sync": 21.053520074696547,
+        "feature_submit": 1.2801017740429503,
+        "sampling_commit": 1.2405985060690943,
+        "draft": 6.551353874883287,
+        "other": 0.34923342670401497
+      },
+      "dispatch": {
+        "cycle": 1071,
+        "selected": 3213,
+        "custom": 3213,
+        "compared_scores": 0
+      },
+      "telemetry_peaks": {
+        "AMD Radeon RX 9060 XT": {
+          "temperatureC": 44.0,
+          "hotspotC": 55.0,
+          "powerW": 127.0,
+          "vramUsedMB": 14983.0,
+          "vramTotalMB": 16304.0
+        },
+        "AMD Radeon RX 9070 XT": {
+          "temperatureC": 50.0,
+          "hotspotC": 53.0,
+          "powerW": 84.0,
+          "vramUsedMB": 8770.0,
+          "vramTotalMB": 16304.0
+        }
+      }
+    }
+  ]
+}
