@@ -1,4 +1,10 @@
-# Faster MiniCPM decode on Windows RDNA 4: a narrow Q8 kernel case study
+# MiniCPM and LFM inference on Windows RDNA 4
+
+Two measured Windows HIP case studies: **MiniCPM's 85.56 → 93.54 tok/s kernel optimization on a dual-GPU setup**, and **LFM's 95.48 → 144.38 tok/s DSpark result on one RX 9060 XT**. They use different models and are not a model-speed ranking.
+
+**Separate highlight: [Qwen3.8-27B at approximately 69 tok/s on one RX 9060 XT](qwen-9060xt/README.md)**, with unchanged target weights, exact six-task output reproduction, power-limit evidence and a larger-context follow-up.
+
+## MiniCPM: a narrow Q8 kernel case study
 
 A specialized HIP kernel increased pooled decode throughput from **85.56 to 93.54 tokens/s (+9.33%)** in a controlled MiniCPM experiment. All **3,109 generated token IDs** stayed identical, the generated repository fix passed **25/25 tests**, and a separate numerical audit compared **797,286,672 scores with zero bit mismatches**.
 
@@ -120,10 +126,68 @@ The remaining sampled Markov group is only about 0.689 ms, so removing that enti
 
 See [the ROCm development roadmap](ROCM-ROADMAP.md) for the distinction between generalizing this llama.cpp optimization and demonstrating a contribution to AMD's libraries, runtime or compiler.
 
+## LFM: 144.38 tok/s and a working repository fix on one RX 9060 XT
+
+Adding LiquidAI's official F16 DSpark sidecar increased LFM2.5-24B-A2B decode from **95.483 to 144.378 tok/s (+51.21%)** on the same repository bug. Both unedited fixes passed **25/25 tests**. Thinking was enabled and allowed to finish naturally.
+
+**LFM used the 9060 XT alone.** Although the machine contains two GPUs, the saved runtime evidence places all 41/41 target and 6/6 draft layers on the 9060 XT, with no 9070 model, cache, recurrent-state or compute-buffer allocation. Enumerating two adapters is not dual-GPU inference.
+
+| Measurement | Target only | Target + DSpark |
+|---|---:|---:|
+| Decode tok/s, server convention | 95.483 | 144.378 |
+| Prompt tokens | 4,705 | 4,705 |
+| Output tokens including thinking | 9,326 | 10,177 |
+| Decode seconds | 97.661 | 70.482 |
+| Prefill tok/s | 1,228.924 | 885.663 |
+| Prefill seconds | 3.829 | 5.312 |
+| Complete request seconds | 101.499 | 75.802 |
+| Existing / regression tests | 17/17 + 8/8 | 17/17 + 8/8 |
+| Peak used / remaining VRAM, MiB | 14,107 / 2,197 | 15,523 / 781 |
+| Peak core / hotspot, °C | 51 / 65 | 51 / 65 |
+| Peak reported GPU power, W | 132 | 137 |
+
+The complete request took **25.32% less time** despite emitting **9.13% more tokens**. Prompt processing became slower, which faster decode outweighed. The two generated fixes have different text and lengths; this is **one A/B workload**, not a repeated statistical comparison or proof of identical model behavior. These rates use the server's `(output tokens − 1) / decode seconds` convention, with the original counts retained in [the numeric evidence](data/lfm-results.json).
+
+### LFM task and configuration
+
+The task repaired the same class of SSE parser bug described above: recognize `data:[DONE]` and `data: [DONE]`, preserving usage, timing, reasoning, tools and error classification. It used a frozen fixture at commit `6e9af930261a88bb28ac0bfb157ce8e57e9eea07`. Only the stream-parser module could change. Both candidate diffs were reviewed and tested without hand repairs against 17 upstream tests and eight regressions. The original fixture failed four regressions. The passes demonstrate this fix works, not general quality parity.
+
+| Setting | Value |
+|---|---|
+| Target | Unchanged full-vocabulary `LFM2.5-24B-A2B-QAD-Q4_0` GGUF |
+| Draft | Official `LFM2.5-24B-A2B-DSpark-F16` GGUF |
+| Engine | Retained llama.cpp b11558, commit `c83f3058b6f876f2f7e6ccbada858b2446860c85`, HIP |
+| Target / draft placement | RX 9060 XT, split mode none |
+| Target / draft context capacity | 65,536 / 65,536 tokens |
+| Target and draft KV | Q8_0 keys and values; no Q4 KV |
+| Target / draft cache | 680 / 340 MiB |
+| Proposals | Nine; runtime confirmed DSpark active |
+| Sampling | Temperature 0.1, top-p 1, top-k 50, min-p 0, repeat penalty 1.05, seed 2046 |
+| Thinking / output allowance | Enabled, native template / 16,384 tokens |
+| Batch / microbatch / threads | 256 / 64 / 8 |
+| Attention / cache / sequence count | Flash attention on / prompt cache off / one |
+| Power limit | User-set −30% on the 9060 XT, unchanged |
+
+**64K is allocated capacity, not actual prompt occupancy.** The requests began at 4,705 tokens and ended below 15K total tokens. This does not measure speed at a filled 64K context. Host embeddings and CPU orchestration remain part of this backend.
+
+No custom kernel, n-gram accelerator, target requantization or runtime upgrade was used for this LFM A/B. The engine is llama.cpp; the repository fixture used to evaluate the generated edit is not the inference engine. LFM's trained sidecar result is separate from MiniCPM's specialized scoring kernel.
+
+### LFM drafting and limits
+
+The drafter ran **1,672 rounds**, proposed **15,048 tokens** and had **8,504 accepted (56.51%)**. Accepted proposals account for approximately **83.56%** of the 10,177 emitted tokens; including the target token gives approximately 6.09 emitted tokens per round.
+
+Runtime wall timers recorded **19.392 s drafting**, or **11.60 ms per round**. Subtracting that from the 70.482 s decode leaves **51.090 s**, or **30.56 ms per round**. This remainder includes verification, sampling, transfers and scheduling. It is **not an isolated HIP verification-kernel measurement** and cannot all be claimed as recoverable time.
+
+The official sidecar was acquired only after the recorded dependency/advisory review, at revision `9222226d8d0fea777a25988e7389e543e99e4e0d` from [LiquidAI's DSpark GGUF repository](https://huggingface.co/LiquidAI/LFM2.5-24B-A2B-DSpark-GGUF). Model and runtime hashes are retained in the allowlisted evidence. No executable dependencies, Python packages, drivers, HIP or Vulkan upgrades were added for this A/B. The retained software is not represented as CVE-free: it was used locally with authenticated loopback, RPC unused and WebUI disabled.
+
+No guard tripped in either bounded run; owned processes were cleaned up and **894 runtime/input pins** passed re-verification. GPU-only ADLX monitoring used 0.5-second polling and a three-second stale-data stop, with thermal, power and memory limits. Sampled peaks are not calibrated energy readings. These runs do not establish endurance, graceful unload behavior or two-GPU reliability.
+
 ## Evidence and reproduction
 
 - [Methodology and reconstruction requirements](METHODOLOGY.md)
 - [Allowlisted numeric evidence](data/results.json), [clean-run CSV](data/runs.csv), and [artifact provenance](data/provenance.json)
+- [LFM numeric evidence and provenance](data/lfm-results.json)
+- [Standalone Qwen 27B single-card report](qwen-9060xt/README.md) and [its numeric evidence](qwen-9060xt/results.json)
 - [Privacy boundary and verification](PRIVACY.md)
 
 This package contains a write-up and sanitized measurements. The machine-specific runner, model weights, raw prompts, responses, logs and binaries are not redistributed. It is not a turnkey benchmark release. The included verifier checks the public bundle's arithmetic, file inventory, hashes and common privacy-leak patterns using Python's standard library.

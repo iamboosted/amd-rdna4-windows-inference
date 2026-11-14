@@ -10,9 +10,11 @@ import math
 import os
 from pathlib import Path
 import re
+import statistics
 
 FILES = {'README.md', 'METHODOLOGY.md', 'ROCM-ROADMAP.md', 'PRIVACY.md', 'verify.py',
-         'data/results.json', 'data/runs.csv', 'data/provenance.json', 'SHA256SUMS'}
+         'data/results.json', 'data/runs.csv', 'data/provenance.json', 'SHA256SUMS',
+         'data/lfm-results.json', 'qwen-9060xt/README.md', 'qwen-9060xt/results.json'}
 CLEAN = ['control-01', 'optimized-01', 'optimized-02', 'control-02']
 PHASES = {'verify_sync', 'feature_submit', 'sampling_commit', 'draft', 'other'}
 PATTERNS = {
@@ -134,6 +136,78 @@ def self_test(data):
     return len(samples) + 1 + len(mutants)
 
 
+def validate_lfm(data):
+    validate_numbers(data)
+    require(data['single_gpu_inference'] is True and data['gpu'] == 'RX 9060 XT', 'LFM GPU scope')
+    require(data['no_ngram'] is True and data['no_custom_kernel'] is True, 'LFM method')
+    control, draft = data['runs']
+    require([r['mode'] for r in data['runs']] == ['control', 'dspark'], 'LFM run inventory')
+    for row in data['runs']:
+        require(row['context_capacity'] == 65536 and row['prompt_tokens'] == 4705, 'LFM context scope')
+        require(row['kv'] == row['draft_kv'] == 'q8_0/q8_0', 'LFM KV precision')
+        require(row['server_counted_tokens'] == row['output_tokens'] - 1, 'LFM token convention')
+        require(close(row['decode_tok_s'], row['server_counted_tokens']*1000/row['decode_ms']), 'LFM decode rate')
+        require(close(row['prefill_tok_s'], row['prompt_tokens']*1000/row['prefill_ms']), 'LFM prefill rate')
+        require(row['upstream_passed'] == 17 and row['regression_passed'] == 8, 'LFM grading')
+        require(row['fix_works'] and row['thinking_present'] and row['cleanup_confirmed'], 'LFM completion flags')
+        require(row['finish'] == 'stop' and row['output_tokens'] < 16384, 'LFM natural stop')
+    require(control['output_tokens'] == 9326 and draft['output_tokens'] == 10177, 'LFM different lengths')
+    require(close(data['decode_gain_percent'], 100*(draft['decode_tok_s']/control['decode_tok_s']-1)), 'LFM speed gain')
+    require(close(data['request_time_reduction_percent'], 100*(1-draft['request_seconds']/control['request_seconds'])), 'LFM request time')
+    s = draft['speculation']
+    require(s['proposals'] == s['rounds']*9 == 15048, 'LFM proposal counts')
+    require(s['accepted_proposals'] + s['rounds'] + 1 == draft['output_tokens'], 'LFM emitted accounting')
+    require(len(data['artifacts']) == 6, 'LFM provenance coverage')
+    for artifact in data['artifacts']:
+        require(set(artifact) == {'file', 'sha256'}, 'LFM artifact allowlist')
+        require('/' not in artifact['file'] and chr(92) not in artifact['file'], 'LFM artifact basename')
+        require(re.fullmatch('[0-9a-f]{64}', artifact['sha256']) is not None, 'LFM artifact hash')
+
+
+def validate_qwen(data):
+    validate_numbers(data)
+    c = data['configuration']
+    require(data['single_gpu_inference'] is True and c['gpu'] == 'RX 9060 XT', 'Qwen GPU scope')
+    require(c['vocabulary'] == 248320 and c['proposals'] == 7, 'Qwen full vocabulary and proposals')
+    require(c['context_capacity'] == 8192 and c['target_kv'] == 'q8_0/q8_0' and c['draft_kv'] == 'q4_0/q4_0', 'Qwen original cache scope')
+    by_run = {r['run']: r for r in data['runs']}
+    require(len(by_run) == len(data['runs']) == 12, 'Qwen selected run inventory')
+    for r in data['runs']:
+        require(r['measurement_mode'] == 'clean' and r['graphs_disabled'] is False, 'Qwen clean measurement')
+        require(close(r['aggregate_decode_tok_s'], r['output_tokens']*1000/r['total_decode_ms']), 'Qwen pooled rate')
+        require(sum(t['passed'] for t in r['task_results']) == r['cases_passed'], 'Qwen task score sum')
+        require(sum(t['cases'] for t in r['task_results']) == r['cases'] == 167, 'Qwen test coverage')
+        require(sum(t['passed'] == t['cases'] for t in r['task_results']) == r['tasks_passed'], 'Qwen task passes')
+        for filename, digest in r['runtime_sha256'].items():
+            require('/' not in filename and chr(92) not in filename and re.fullmatch('[0-9a-f]{64}', digest), 'Qwen artifact identity')
+    for label in ['draft-mmq-control', 'draft-mmq-enabled', 'draft-mmq-final', 'draft-mmq-final-repeat']:
+        r = by_run[label]
+        require(r['exact_token_streams_vs_original'] == [True]*6 and r['output_tokens'] == 4069, 'Qwen exact outputs')
+        require(r['cases_passed'] == 155 and r['tasks_passed'] == 5, 'Qwen retained errors')
+    off, on = by_run['draft-mmq-control'], by_run['draft-mmq-enabled']
+    require(off['runtime_sha256'] == on['runtime_sha256'], 'Qwen same-build toggle')
+    before, after = data['power_comparison']['runs']
+    for r in [before, after]:
+        require(close(r['median_tps'], statistics.median(r['per_task_tps'].values())), 'Qwen power median')
+        require(close(r['coverage_percent'], 100*r['covered_request_seconds']/r['total_request_seconds']), 'Qwen power coverage')
+        require(r['accuracy'] == {'tokens': 4069, 'cases_passed': 155, 'cases': 167, 'tasks_passed': 5, 'exact_task_token_matches': 6}, 'Qwen power accuracy')
+    p = data['power_comparison']
+    require(close(p['median_tps_change_percent'], 100*(after['median_tps']/before['median_tps']-1)), 'Qwen power throughput change')
+    require(close(p['average_reported_power_change_percent'], 100*(after['average_adlx_power_w']/before['average_adlx_power_w']-1)), 'Qwen reported power change')
+    f = data['larger_context_followup']
+    require(f['context_capacity'] == 16384 and f['target_kv'] == f['draft_kv'] == 'q8_0/q8_0', 'Qwen later cache scope')
+    require(f['prompt_tokens'] == 10258 and f['output_tokens'] == 2608, 'Qwen longer prompt')
+    require(close(f['decode_tok_s'], (f['output_tokens']-1)*1000/f['decode_ms']), 'Qwen follow-up rate')
+    require(f['raw_project_output_accepted'] is False and f['formatting_only_diagnostic'] is True, 'Qwen formatting limitation')
+    require(f['diagnostic_checks_passed'] == 875 and f['diagnostic_workflows_passed'] == 39, 'Qwen diagnostic limitation')
+    require(f['short_tasks']['cases_passed'] == 132 and f['short_tasks']['tasks_passed'] == 4, 'Qwen context-task limitation')
+    require(f['measured_at_32k'] is False and f['guard_trip'] is False, 'Qwen context and guard limits')
+    a = data['acceptance']
+    require(a['accepted_tokens'] + a['rounds'] + a['initial_tokens_outside_speculative_rounds'] == a['output_tokens'] == 4069, 'Qwen accepted accounting')
+    require(close(a['ms_per_round'], a['decode_ms']/a['rounds']), 'Qwen round timing')
+    require(close(a['round_emitted_tokens_mean'], (a['output_tokens']-6)/a['rounds']), 'Qwen tokens per round')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--deny-term', action='append', default=[])
@@ -164,6 +238,10 @@ def main():
     require(set(manifest) == FILES - {'SHA256SUMS'}, 'incomplete manifest')
     data = json.loads(texts['data/results.json'])
     validate_data(data)
+    lfm = json.loads(texts['data/lfm-results.json'])
+    qwen = json.loads(texts['qwen-9060xt/results.json'])
+    validate_lfm(lfm)
+    validate_qwen(qwen)
     by_run = {r['run']: r for r in data['runs']}
     with (root/'data/runs.csv').open(newline='', encoding='utf-8') as f:
         csv_rows = list(csv.DictReader(f))
@@ -186,8 +264,19 @@ def main():
             for target in re.findall(r'\[[^\]]*\]\(([^)]+)\)', text):
                 if target.startswith(('https://', '#')):
                     continue
-                require((root/target.split('#', 1)[0]).is_file(), name + ': broken relative link')
+                require((root/name).parent.joinpath(target.split('#', 1)[0]).is_file(), name + ': broken relative link')
     checks = self_test(data) if args.self_test else 0
+    if args.self_test:
+        mutants = [(validate_lfm, copy.deepcopy(lfm)), (validate_qwen, copy.deepcopy(qwen))]
+        mutants[0][1]['runs'][1]['decode_tok_s'] = 200
+        mutants[1][1]['larger_context_followup']['raw_project_output_accepted'] = True
+        for validate, mutant in mutants:
+            try:
+                validate(mutant)
+            except ValueError:
+                checks += 1
+            else:
+                raise ValueError('Invalid added report evidence accepted')
     print(json.dumps({'status': 'pass', 'publication_files': len(FILES), 'hashes_verified': len(manifest),
                       'clean_runs': len(CLEAN), 'evidence_arithmetic': 'pass', 'privacy_scan': 'pass',
                       'self_tests': checks}, indent=2))

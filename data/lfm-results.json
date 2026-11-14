@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "evidence_date": "2026-11-13",
+  "gpu": "RX 9060 XT",
+  "single_gpu_inference": true,
+  "thinking": true,
+  "target": "LFM2.5-24B-A2B-QAD-Q4_0",
+  "draft": "LFM2.5-24B-A2B-DSpark-F16",
+  "proposals_per_round": 9,
+  "no_ngram": true,
+  "no_custom_kernel": true,
+  "fixture_commit": "6e9af930261a88bb28ac0bfb157ce8e57e9eea07",
+  "baseline_fixture": {
+    "upstream_passed": 17,
+    "upstream_tests": 17,
+    "regression_passed": 4,
+    "regression_tests": 8
+  },
+  "runs": [
+    {
+      "mode": "control",
+      "runtime_build": 11558,
+      "runtime_commit": "c83f3058b6f876f2f7e6ccbada858b2446860c85",
+      "context_capacity": 65536,
+      "kv": "q8_0/q8_0",
+      "draft_kv": "q8_0/q8_0",
+      "user_reported_9060_power_limit_percent": -30,
+      "request_seconds": 101.4988715999998,
+      "finish": "stop",
+      "thinking_present": true,
+      "cleanup_confirmed": true,
+      "fix_works": true,
+      "upstream_passed": 17,
+      "regression_passed": 8,
+      "prompt_tokens": 4705,
+      "output_tokens": 9326,
+      "server_counted_tokens": 9325,
+      "decode_ms": 97661.253,
+      "decode_tok_s": 95.48310833161234,
+      "prefill_ms": 3828.553,
+      "prefill_tok_s": 1228.923825790057,
+      "telemetry_peaks": {
+        "temperatureC": 51.0,
+        "hotspotC": 65.0,
+        "powerW": 132.0,
+        "vramUsedMB": 14107.0,
+        "vramTotalMB": 16304.0
+      }
+    },
+    {
+      "mode": "dspark",
+      "runtime_build": 11558,
+      "runtime_commit": "c83f3058b6f876f2f7e6ccbada858b2446860c85",
+      "context_capacity": 65536,
+      "kv": "q8_0/q8_0",
+      "draft_kv": "q8_0/q8_0",
+      "user_reported_9060_power_limit_percent": -30,
+      "request_seconds": 75.80233320000025,
+      "finish": "stop",
+      "thinking_present": true,
+      "cleanup_confirmed": true,
+      "fix_works": true,
+      "upstream_passed": 17,
+      "regression_passed": 8,
+      "prompt_tokens": 4705,
+      "output_tokens": 10177,
+      "server_counted_tokens": 10176,
+      "decode_ms": 70481.745,
+      "decode_tok_s": 144.37781016914383,
+      "prefill_ms": 5312.407,
+      "prefill_tok_s": 885.6625631281639,
+      "telemetry_peaks": {
+        "temperatureC": 51.0,
+        "hotspotC": 65.0,
+        "powerW": 137.0,
+        "vramUsedMB": 15523.0,
+        "vramTotalMB": 16304.0
+      },
+      "speculation": {
+        "proposals": 15048,
+        "accepted_proposals": 8504,
+        "rounds": 1672,
+        "draft_wall_ms": 19391.576
+      }
+    }
+  ],
+  "decode_gain_percent": 51.207698085948806,
+  "request_time_reduction_percent": 25.317068056941437,
+  "preservation_pins_verified": 894,
+  "artifacts": [
+    {
+      "file": "amdhip64_7.dll",
+      "sha256": "3872b4aa82bbc91fcd53836bdbc2b4261c98c845eadfba31cce6ef4709a4697e"
+    },
+    {
+      "file": "ggml-hip.dll",
+      "sha256": "8cdde09df063bbd3e5c8fe83ceec45a0e968dc84ce2bc84cc57d3f0257919170"
+    },
+    {
+      "file": "llama-server.exe",
+      "sha256": "22e53ebf2e955688119f120f6cb408849eb22d50957763375d2e2e39df836537"
+    },
+    {
+      "file": "llama.dll",
+      "sha256": "46d26ad293f2827eb5b6ea874c398d07a064084eceb61900b8d0cbeacc930d4f"
+    },
+    {
+      "file": "LFM2.5-24B-A2B-QAD-Q4_0.gguf",
+      "sha256": "89617cc4d3a52e973ee8dea72c7df04285f582107385796ba903f81e540e4afa"
+    },
+    {
+      "file": "LFM2.5-24B-A2B-DSpark-F16.gguf",
+      "sha256": "0cd847ca049aeabf53cb41d62091ae20eb50245cf89594c75af204784a1b1a0f"
+    }
+  ]
+}

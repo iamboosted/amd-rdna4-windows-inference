@@ -1,0 +1,1105 @@
+{
+  "schema_version": 1,
+  "evidence_through": "2026-11-13",
+  "single_gpu_inference": true,
+  "configuration": {
+    "gpu": "RX 9060 XT",
+    "backend": "native Windows HIP",
+    "target": "Qwen3.8-27B UD-Q3_K_XL",
+    "vocabulary": 248320,
+    "draft": "DFlash2 Q4_K_M",
+    "proposals": 7,
+    "context_capacity": 8192,
+    "target_kv": "q8_0/q8_0",
+    "draft_kv": "q4_0/q4_0",
+    "thinking_budget": 256,
+    "temperature": 0,
+    "seed": 2046,
+    "output_cap": 1536,
+    "batch": 1024,
+    "microbatch": 256,
+    "upstream_build": 12110,
+    "upstream_commit": "cd959bae99ff4bed22bef2604f45241c09bbb8c8",
+    "target_sha256": "00cf92e666c6af6566996c38c89a44ccdb6449ea25ef0f112a452c853b2a71e2",
+    "draft_sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd"
+  },
+  "runs": [
+    {
+      "run": "draft-mmq-control",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 65.10091715205772,
+      "aggregate_decode_tok_s": 64.93378517289918,
+      "draft_ms_per_round": 12.992740532959324,
+      "verification_ms_per_round": 72.4395736325385,
+      "decode_ms_per_round": 87.88756661991584,
+      "total_decode_ms": 62663.835,
+      "output_tokens": 4069,
+      "rounds": 713,
+      "proposed_tokens": 4991,
+      "accepted_tokens": 3350,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "0a4841a6048ce894169f0abb4fbbe81e4d546a56a6bb83e85cd77ec3b199f975",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "draft-mmq-enabled",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.25102490817707,
+      "aggregate_decode_tok_s": 68.18223023957819,
+      "draft_ms_per_round": 9.876767277856136,
+      "verification_ms_per_round": 71.71060930888578,
+      "decode_ms_per_round": 84.17250493653032,
+      "total_decode_ms": 59678.306,
+      "output_tokens": 4069,
+      "rounds": 709,
+      "proposed_tokens": 4963,
+      "accepted_tokens": 3354,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "0a4841a6048ce894169f0abb4fbbe81e4d546a56a6bb83e85cd77ec3b199f975",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "draft-mmq-final",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.32815172263284,
+      "aggregate_decode_tok_s": 67.91877008571602,
+      "draft_ms_per_round": 9.95847108603667,
+      "verification_ms_per_round": 71.92586459802543,
+      "decode_ms_per_round": 84.49901410437235,
+      "total_decode_ms": 59909.801,
+      "output_tokens": 4069,
+      "rounds": 709,
+      "proposed_tokens": 4963,
+      "accepted_tokens": 3354,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "draft-mmq-final-repeat",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.82594764882789,
+      "aggregate_decode_tok_s": 68.43341598488888,
+      "draft_ms_per_round": 9.75836389280677,
+      "verification_ms_per_round": 71.62542313117059,
+      "decode_ms_per_round": 83.86354866008463,
+      "total_decode_ms": 59459.256,
+      "output_tokens": 4069,
+      "rounds": 709,
+      "proposed_tokens": 4963,
+      "accepted_tokens": 3354,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "signed-grid",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 60.38350636199701,
+      "aggregate_decode_tok_s": 60.255822320640235,
+      "draft_ms_per_round": 13.127880785413744,
+      "verification_ms_per_round": 78.7021669004209,
+      "decode_ms_per_round": 94.7107208976157,
+      "total_decode_ms": 67528.74399999999,
+      "output_tokens": 4069,
+      "rounds": 713,
+      "proposed_tokens": 4991,
+      "accepted_tokens": 3350,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "b3ea4d87f12362d09e9448e59ebdd28626e3a54236522166236eba39cfb2a751",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "small-mmvq-control",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 64.34232403352419,
+      "aggregate_decode_tok_s": 64.08508508551076,
+      "draft_ms_per_round": 13.206692847124824,
+      "verification_ms_per_round": 72.88371669004192,
+      "decode_ms_per_round": 89.05149088359046,
+      "total_decode_ms": 63493.712999999996,
+      "output_tokens": 4069,
+      "rounds": 713,
+      "proposed_tokens": 4991,
+      "accepted_tokens": 3350,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "30cd5394f7d03ea4714c354cd3b4b503b05cf8434c5a2a54b137537fda89fe40",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "small-mmvq-enabled",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 66.33100993435804,
+      "aggregate_decode_tok_s": 65.66823723333124,
+      "draft_ms_per_round": 13.228163179916319,
+      "verification_ms_per_round": 71.67414086471436,
+      "decode_ms_per_round": 87.7790529986053,
+      "total_decode_ms": 62937.581,
+      "output_tokens": 4133,
+      "rounds": 717,
+      "proposed_tokens": 5019,
+      "accepted_tokens": 3410,
+      "exact_token_streams_vs_original": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 159,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 20,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "00d50686815af38249d0218c91558fbd0e9093ac8c074bac86196907f4305e31",
+        "llama.dll": "211b91d86e67c49f12eb97992b45ae4c2fc797d6edab48637835a877c808890e",
+        "llama-common.dll": "0898e517843e4478b5178621dc878552b4d40a4d47d7b6f1775e7897f4e2344e",
+        "llama-server-impl.dll": "c5d306bdcad1c4011f18a1c01ae2fcdca48a197af0d421c2931ace2cfb487fc6",
+        "ggml.dll": "06dfdff8b7b834c757ec5b5411abfc0f732604fb595eaaffbdc6da563523e8a1",
+        "ggml-base.dll": "3a0399fa51102a86824255beda9d021ea7e8cd2bd8ca448a43a9a80aa4829290",
+        "ggml-hip.dll": "30cd5394f7d03ea4714c354cd3b4b503b05cf8434c5a2a54b137537fda89fe40",
+        "mtmd.dll": "74a3cace50f6c545cc66e4dc05e2aecf465f146ea1b4000376cd9834598a3e14",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "lookahead-control",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.38184144273569,
+      "aggregate_decode_tok_s": 68.01541905705456,
+      "draft_ms_per_round": 10.058660084626236,
+      "verification_ms_per_round": 71.71760507757406,
+      "decode_ms_per_round": 84.37894217207334,
+      "total_decode_ms": 59824.67,
+      "output_tokens": 4069,
+      "rounds": 709,
+      "proposed_tokens": 4963,
+      "accepted_tokens": 3354,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "e8fbb95a450887c715ac41056b36a9ba4a00adf8ab3c6fde0301a6f267629aba",
+        "llama.dll": "6a6d0ed97b0035de762c0ac5b7d524749ba9f458dc75fa59e5c42d70f38a127a",
+        "llama-common.dll": "4de00b927ba341e11e321302f92e6ccae60247db398e686a9c5822ce664a431a",
+        "llama-server-impl.dll": "67e855ac7bce1117fd1120ad7655a927e22760f0be544a1f33798779e1e2ce52",
+        "ggml.dll": "5a070d143db1f956b347a5a5a92244d00051da9be7dff5b37253daa08066d273",
+        "ggml-base.dll": "6655d77181da4ac4d507ae25c1f7bf889ef2777825fa4708b616a17bd502f2b5",
+        "ggml-cpu.dll": "c31ff36e0720e27f71b372def934df430c2e1b7c3db3a5018b0e980b4277ac23",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "5bd8b859b28918713f29f6321fa28adb1a82de0d9df6c74de219a04d6bfb3a61",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "lookahead-two",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.06706892505922,
+      "aggregate_decode_tok_s": 67.63842363808146,
+      "draft_ms_per_round": 9.973380952380953,
+      "verification_ms_per_round": 71.79899019607853,
+      "decode_ms_per_round": 84.25506162464985,
+      "total_decode_ms": 60158.114,
+      "output_tokens": 4069,
+      "rounds": 714,
+      "proposed_tokens": 4998,
+      "accepted_tokens": 3349,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "e8fbb95a450887c715ac41056b36a9ba4a00adf8ab3c6fde0301a6f267629aba",
+        "llama.dll": "6a6d0ed97b0035de762c0ac5b7d524749ba9f458dc75fa59e5c42d70f38a127a",
+        "llama-common.dll": "4de00b927ba341e11e321302f92e6ccae60247db398e686a9c5822ce664a431a",
+        "llama-server-impl.dll": "67e855ac7bce1117fd1120ad7655a927e22760f0be544a1f33798779e1e2ce52",
+        "ggml.dll": "5a070d143db1f956b347a5a5a92244d00051da9be7dff5b37253daa08066d273",
+        "ggml-base.dll": "6655d77181da4ac4d507ae25c1f7bf889ef2777825fa4708b616a17bd502f2b5",
+        "ggml-cpu.dll": "c31ff36e0720e27f71b372def934df430c2e1b7c3db3a5018b0e980b4277ac23",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "5bd8b859b28918713f29f6321fa28adb1a82de0d9df6c74de219a04d6bfb3a61",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "lookahead-seven",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.12373772257743,
+      "aggregate_decode_tok_s": 67.80464377324829,
+      "draft_ms_per_round": 9.92715104895105,
+      "verification_ms_per_round": 71.50358601398592,
+      "decode_ms_per_round": 83.93096363636363,
+      "total_decode_ms": 60010.638999999996,
+      "output_tokens": 4069,
+      "rounds": 715,
+      "proposed_tokens": 5005,
+      "accepted_tokens": 3348,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "e8fbb95a450887c715ac41056b36a9ba4a00adf8ab3c6fde0301a6f267629aba",
+        "llama.dll": "6a6d0ed97b0035de762c0ac5b7d524749ba9f458dc75fa59e5c42d70f38a127a",
+        "llama-common.dll": "4de00b927ba341e11e321302f92e6ccae60247db398e686a9c5822ce664a431a",
+        "llama-server-impl.dll": "67e855ac7bce1117fd1120ad7655a927e22760f0be544a1f33798779e1e2ce52",
+        "ggml.dll": "5a070d143db1f956b347a5a5a92244d00051da9be7dff5b37253daa08066d273",
+        "ggml-base.dll": "6655d77181da4ac4d507ae25c1f7bf889ef2777825fa4708b616a17bd502f2b5",
+        "ggml-cpu.dll": "c31ff36e0720e27f71b372def934df430c2e1b7c3db3a5018b0e980b4277ac23",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "5bd8b859b28918713f29f6321fa28adb1a82de0d9df6c74de219a04d6bfb3a61",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "prefix-control",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 68.30862815648598,
+      "aggregate_decode_tok_s": 68.11045316015344,
+      "draft_ms_per_round": 9.931874471086035,
+      "verification_ms_per_round": 71.78610296191793,
+      "decode_ms_per_round": 84.26120874471086,
+      "total_decode_ms": 59741.197,
+      "output_tokens": 4069,
+      "rounds": 709,
+      "proposed_tokens": 4963,
+      "accepted_tokens": 3354,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "8e6c1ce84e9d3b5980a81be7ea5569dbdfb4d195d0ee7b5c2a7df368927bada3",
+        "llama.dll": "6a6d0ed97b0035de762c0ac5b7d524749ba9f458dc75fa59e5c42d70f38a127a",
+        "llama-common.dll": "f75299be9b30adf703c6644f44903d6f452a894f0b16ce1b355a4ba645cc6ab0",
+        "llama-server-impl.dll": "53db67fc3d00e0724ea2921f84709aa4d13d42246027d556503afa45f451828f",
+        "ggml.dll": "5a070d143db1f956b347a5a5a92244d00051da9be7dff5b37253daa08066d273",
+        "ggml-base.dll": "6655d77181da4ac4d507ae25c1f7bf889ef2777825fa4708b616a17bd502f2b5",
+        "ggml-cpu.dll": "c31ff36e0720e27f71b372def934df430c2e1b7c3db3a5018b0e980b4277ac23",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "5bd8b859b28918713f29f6321fa28adb1a82de0d9df6c74de219a04d6bfb3a61",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    },
+    {
+      "run": "prefix-enabled",
+      "measurement_mode": "clean",
+      "graphs_disabled": false,
+      "performance_comparison_eligible": true,
+      "median_decode_tok_s": 67.84747765452542,
+      "aggregate_decode_tok_s": 67.19523727292234,
+      "draft_ms_per_round": 10.038295676429568,
+      "verification_ms_per_round": 71.8438730822873,
+      "decode_ms_per_round": 84.45590934449093,
+      "total_decode_ms": 60554.886999999995,
+      "output_tokens": 4069,
+      "rounds": 717,
+      "proposed_tokens": 5019,
+      "accepted_tokens": 3346,
+      "exact_token_streams_vs_original": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "tasks_passed": 5,
+      "cases_passed": 155,
+      "cases": 167,
+      "task_results": [
+        {
+          "task": "available",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": false
+        },
+        {
+          "task": "schedule",
+          "passed": 29,
+          "cases": 29,
+          "extra_text": false
+        },
+        {
+          "task": "snapshot",
+          "passed": 27,
+          "cases": 27,
+          "extra_text": true
+        },
+        {
+          "task": "shortest",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cheapest",
+          "passed": 16,
+          "cases": 28,
+          "extra_text": false
+        },
+        {
+          "task": "cache_reads",
+          "passed": 28,
+          "cases": 28,
+          "extra_text": false
+        }
+      ],
+      "runtime_sha256": {
+        "qwen-profile.exe": "8e6c1ce84e9d3b5980a81be7ea5569dbdfb4d195d0ee7b5c2a7df368927bada3",
+        "llama.dll": "6a6d0ed97b0035de762c0ac5b7d524749ba9f458dc75fa59e5c42d70f38a127a",
+        "llama-common.dll": "f75299be9b30adf703c6644f44903d6f452a894f0b16ce1b355a4ba645cc6ab0",
+        "llama-server-impl.dll": "53db67fc3d00e0724ea2921f84709aa4d13d42246027d556503afa45f451828f",
+        "ggml.dll": "5a070d143db1f956b347a5a5a92244d00051da9be7dff5b37253daa08066d273",
+        "ggml-base.dll": "6655d77181da4ac4d507ae25c1f7bf889ef2777825fa4708b616a17bd502f2b5",
+        "ggml-cpu.dll": "c31ff36e0720e27f71b372def934df430c2e1b7c3db3a5018b0e980b4277ac23",
+        "ggml-hip.dll": "0cf9c6f52cd447c4efae5b457f267b55d97545abbca5d72519ef5d79ef6bdbc6",
+        "mtmd.dll": "5bd8b859b28918713f29f6321fa28adb1a82de0d9df6c74de219a04d6bfb3a61",
+        "amdhip64_7.dll": "49a7a6f4307e7bfe53c99feb64ce213dc0b2b0211d9635c175bd093cdc08625b",
+        "amd_comgr.dll": "d82dd3c1d8c49dca366e8fa5c08bb74ff4d1740d829fda41d7917b8c26a8d253",
+        "rocm_kpack.dll": "c7f342bae0b0a31f762c04e49e51bfb65755b34af6c8ea5732492ea90cb1c701"
+      }
+    }
+  ],
+  "power_comparison": {
+    "runs": [
+      {
+        "median_tps": 68.992183918884,
+        "aggregate_tps": 68.75540715907863,
+        "verification_ms": 69.65563046544443,
+        "drafting_ms": 10.371156558533146,
+        "average_adlx_power_w": 148.0893818657971,
+        "covered_request_seconds": 62.30259430000034,
+        "total_request_seconds": 62.45407800000001,
+        "coverage_percent": 99.75744786433374,
+        "peaks": {
+          "temperatureC": 50.0,
+          "hotspotC": 70.0,
+          "powerW": 156.0,
+          "utilPct": 93.0,
+          "vramUsedMB": 15607.0,
+          "vramTotalMB": 16304.0
+        },
+        "accuracy": {
+          "tokens": 4069,
+          "cases_passed": 155,
+          "cases": 167,
+          "tasks_passed": 5,
+          "exact_task_token_matches": 6
+        },
+        "per_task_tps": {
+          "available": 67.06736491861338,
+          "schedule": 62.156326868157635,
+          "snapshot": 71.50372952246472,
+          "shortest": 69.36192025323406,
+          "cheapest": 68.62244758453394,
+          "cache_reads": 71.53507541685737
+        },
+        "condition": "before power-limit change"
+      },
+      {
+        "median_tps": 69.27830572928083,
+        "aggregate_tps": 69.02311947113193,
+        "verification_ms": 71.1459478138222,
+        "drafting_ms": 9.660242595204513,
+        "average_adlx_power_w": 126.13730941304992,
+        "covered_request_seconds": 61.53581700000019,
+        "total_request_seconds": 61.9946202,
+        "coverage_percent": 99.25993062217388,
+        "peaks": {
+          "temperatureC": 48.0,
+          "hotspotC": 63.0,
+          "powerW": 155.0,
+          "utilPct": 100.0,
+          "vramUsedMB": 15607.0,
+          "vramTotalMB": 16304.0
+        },
+        "accuracy": {
+          "tokens": 4069,
+          "cases_passed": 155,
+          "cases": 167,
+          "tasks_passed": 5,
+          "exact_task_token_matches": 6
+        },
+        "per_task_tps": {
+          "available": 67.39667977590882,
+          "schedule": 62.14405457666612,
+          "snapshot": 71.88063308592069,
+          "shortest": 69.75310966100385,
+          "cheapest": 68.80350179755781,
+          "cache_reads": 71.80641513500532
+        },
+        "condition": "user-set minus 30 percent"
+      }
+    ],
+    "median_tps_change_percent": 0.4147162680532501,
+    "average_reported_power_change_percent": -14.823528990512491
+  },
+  "larger_context_followup": {
+    "context_capacity": 16384,
+    "target_kv": "q8_0/q8_0",
+    "draft_kv": "q8_0/q8_0",
+    "batch": 256,
+    "microbatch": 64,
+    "thinking_budget": 256,
+    "user_power_limit_percent": -30,
+    "prompt_tokens": 10258,
+    "output_tokens": 2608,
+    "thinking_present": true,
+    "request_seconds": 58.27443339999991,
+    "prefill_ms": 20424.585,
+    "decode_ms": 37839.672,
+    "decode_tok_s": 68.89594603251318,
+    "raw_project_output_accepted": false,
+    "formatting_only_diagnostic": true,
+    "diagnostic_checks_passed": 875,
+    "diagnostic_checks_total": 876,
+    "diagnostic_workflows_passed": 39,
+    "diagnostic_workflows_total": 40,
+    "short_tasks": {
+      "completed_tasks": 6,
+      "tasks_passed": 4,
+      "cases_passed": 132,
+      "cases": 167,
+      "median_decode_tps": 67.47854216169054
+    },
+    "telemetry_peaks": {
+      "temperatureC": 51.0,
+      "hotspotC": 67.0,
+      "powerW": 131.0,
+      "utilPct": 100.0,
+      "vramUsedMB": 15565.0,
+      "vramTotalMB": 16304.0
+    },
+    "guard_trip": false,
+    "measured_at_32k": false
+  },
+  "acceptance": {
+    "rounds": 709,
+    "proposed_tokens": 4963,
+    "accepted_tokens": 3354,
+    "output_tokens": 4069,
+    "initial_tokens_outside_speculative_rounds": 6,
+    "decode_ms": 59459.25600000001,
+    "ms_per_round": 83.86354866008463,
+    "round_emitted_tokens_mean": 5.730606488011284,
+    "target_cycle_ms_at_100_without_initial_tokens": 57.306064880112835,
+    "optimistic_perfect_acceptance_tok_s_same_cycle": 95.3930536904128
+  },
+  "branch_diagnostic": {
+    "forced_contexts": 6,
+    "required_checks": 312,
+    "required_bit_exact": 312,
+    "diagnostic_checks": 54,
+    "diagnostic_bit_exact": 42,
+    "greedy_mismatches": 0,
+    "nonfinite": 0,
+    "new_generated_answers_graded": false,
+    "throughput_measured": false
+  }
+}
